@@ -1,9 +1,26 @@
-@main def hello(): Unit =
-  println("Hello world!")
-  println(msg)
+//import com.typesafe.config.ConfigFactory
 
-def msg = "I was compiled by Scala 3. :)"
+//val config = ConfigFactory.load()
+//val dburl = config.getString("db.url")
 
-def greet(name: Array[String]): Unit = {
-  println("Hello How are you")
+
+
+abstract class BookCenter {
+  def book_id: Int
+}
+case class SalesBook(book_id: Int, quantity: Int, bookInfo: InfoBook) extends BookCenter {
+  def addBook(bookname: String, price: Double): Unit = {
+    println(s"Adding book: $bookname by ${bookInfo.author}, price: $price")
+  }
+}
+
+case class InfoBook(book_id: Int, author: String, description: String) extends BookCenter {
+
+}
+
+object BookApp {
+  def main(args: Array[String]): Unit = {
+    val books = SalesBook(1, 10, InfoBook(1, "Author", "Description"))
+    books.addBook("Book Title", 19.99)
+  }
 }
